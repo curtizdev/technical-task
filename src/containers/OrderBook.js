@@ -120,7 +120,7 @@ function OrderBook(props) {
                 />
             </View>
 
-            I
+            
             <View style={styles.nav}>
                 <SafeAreaView>
                     <View style={styles.navContent}>

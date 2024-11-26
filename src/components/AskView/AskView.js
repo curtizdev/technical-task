@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 export default function ({ asks, zoom }) {
 
-    // const [zoom, setZoom] = useState(1);
-    
     const getAskWall = (ask) => {
+        if (!asks || asks.length === 0 || !ask.total) return '0%';
         const last_item = asks.length - 1;
         const output = ((ask.total / (asks[last_item].total)) * 100 * zoom).toFixed(0);
         return `${output}%`;
@@ -17,15 +16,17 @@ export default function ({ asks, zoom }) {
                 <Text style={styles.text1}>TOTAL</Text>
                 <Text style={styles.text2}>PRICE</Text>
             </View>
-            
-            {asks && asks.map((ask, i) => <View key={i} style={{ position: 'relative' }}>
-                <View style={styles.itemRow}>
-                    <Text style={styles.text1}>{ask.total}</Text>
-                    <Text style={styles.text2}>{ask.price}</Text>
-                </View>
 
-                <View style={styles.buyWall(getAskWall(ask))} />
-            </View>)}
+            {asks && asks.map((ask, i) => (
+                <View key={i} style={{ position: 'relative' }}>
+                    <View style={styles.itemRow}>
+                        <Text style={styles.text1}>{ask.total}</Text>
+                        <Text style={styles.text2}>{ask.price}</Text>
+                    </View>
+
+                    <View style={styles.buyWall(getAskWall(ask))} />
+                </View>
+            ))}
         </>
     )
 }
@@ -44,20 +45,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 30,
     },
-    buyWall: val => ({
+    buyWall: (val) => ({
         backgroundColor: 'red',
         position: 'absolute',
         left: 0,
-        width: `${val}`,
+        width: val, // Ensure width is a valid percentage
         height: '100%',
-        flexDirection: 'row-reverse',
-        opacity: .2
+        opacity: 0.2
     }),
-    headerIcons: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
     text1: {
         fontSize: 14,
         fontWeight: '600',
@@ -68,4 +63,4 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#ccc'
     },
-})
+});

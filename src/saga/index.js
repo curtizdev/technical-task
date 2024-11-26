@@ -37,7 +37,7 @@ function* connectWebSocket(action) {
 
         // Listen to WebSocket messages
         while (true) {
-            const msg = yield take(wss.onmessage); // Using take to wait for message
+            const msg = yield take(wss.onmessage);
             const payload = JSON.parse(msg.data);
             const snapshot = payload[1];
 
