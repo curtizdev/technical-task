@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function ({ bids, zoom }) {
 
     const getBuyWall = (bid) => {
-        if (!bids || bids.length === 0 || !bid.total) return '0%'; // Avoid divide by zero error
+        if (!bids || bids.length === 0 || !bid.total) return '0%';
         const last_item = bids.length - 1;
         const output = ((bid.total / (bids[last_item].total)) * 100 * zoom).toFixed(0);
         return `${output}%`;
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
         position: 'absolute',
         right: 0,
-        width: val, // Ensure width is a valid percentage
+        width: val,
         height: '100%',
         opacity: 0.2
     }),
